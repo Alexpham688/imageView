@@ -14,14 +14,14 @@ $(document).ready(function(){
     TweenLite.set(after, {width: drag.css('left')});
   }
   //intro animation
-  animateTo(375);
+  animateTo(800);
 
   $('.start').on('click', function(){
-    animateTo(750);
+    animateTo(800);
   });
 
   $('.middle').on('click', function(){
-    animateTo(375)
+    animateTo(400)
   })
   $('.end').on('click', function(){
     animateTo(0);
