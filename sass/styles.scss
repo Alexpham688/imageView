@@ -2,7 +2,10 @@
 
 $white: #fff;
 $grey: #333;
+$lt-grey: #ddd;
+$md-grey: #999;
 $black: #000;
+$teal: #00ffff;
 
 @mixin filter($grayscale) {
   -webkit-filter: $grayscale;
@@ -19,7 +22,11 @@ $black: #000;
      -moz-transform: $value;
           transform: $value;
 }
-
+@mixin visibility($value) {
+  -webkit-backface-visibility: $value;
+     -moz-backface-visibility: $value;
+          backface-visibility: $value;
+}
 
 body {
   background: $grey;
@@ -36,7 +43,11 @@ header {
   border: 1px solid $white;
   box-shadow: -4px 2px 10px rgba(200, 200, 200, 0.5);
   text-shadow: -2px 2px 6px rgba(200, 200, 200, 0.5);
+  h1 {
+    font-size: 2.4em;
+  }
 }
+
 footer {
   width: 700px;
   height: 50px;
@@ -69,56 +80,161 @@ footer {
     overflow: hidden;
   }
   .before {
-    z-index:  100;
+    z-index: 100%;
   }
   .after {
     z-index: 700;
     @include filter(grayscale(1));
   }
   #drag {
-    position: absolute;
-    width: 7px;
+    position: relative;
+    width: 8px;
     height: 100%;
     top: 0;
     left: 0;
-    background: $black;
+    background: rgba(30,30,30,0.5);
     cursor: pointer;
     z-index: 400;
   }
 }
 nav {
   width: 700px;
-  height: 60px;
+  height: 70px;
   margin: 10px auto;
   border: 1px solid $white;
   box-shadow: -4px 4px 8px rgba(200,200,200,0.5);
 
   ul li{
-    margin: 0 40px;
+    margin: -5px 50px 20px;
     display: inline-block;
     font-size: 1.1em;
     cursor: pointer;
-  }
-  button {
-    width: 110px;
-    font-size: 20px;
-    border-radius: 5px;
-    text-transform: uppercase;
-    cursor: pointer;
-    @include transition(all 0.4s ease);
+    color: $black;
 
-    &:active:after {
-      padding: 0;
-      margin: 0 ;
-      opacity: 1;
-      @include transition(all 0s);
-    }
-    &:hover {
-      background: rgba(5,5,5,0.6);
-      color: #00FFFF;
-      @include transition(all .3s ease);
-      @include transform(scale(1.7));
+    button {
+      border-radius: 1px;
+      cursor: pointer;
+      font-size: 23px;
+      height: 40px;
+      width: 110px;
+      display: inline-block;
+      position: relative;
+      background: $md-grey;
+      color: $grey;
+      box-shadow:-2px 1px 2px rgba(170,170,170,0.6);
+
+     &:before {
+       pointer-events: none;
+       position: absolute;
+       z-index:  -1;
+       content: '';
+       top: 100%;
+       left: 1%;
+       height: 10px;
+       width: 99%;
+       opacity: 0;
+       background: radial-gradient(ellipse at center,rgba(170,170,170,0.7)0%, rgba(170,170,170,0)80%);
+       @include transition(transform-opacity);
+     }
+     &:hover {
+       @include transform(translateY(-6px));
+       @include transition(all .3s ease-in-out);
+       background: $teal;
+       color: $white;
+     }
+     &:hover:before {
+       opacity: 1;
+       @include transform(translateY(5px));
+       @include transition(all .3s ease-in-out);
+     }
     }
   }
+}
+.start:hover {
+  @include transform(translateX(20px));
+  @include transition(all .3s ease-in-out);
+}
+.end:hover {
+  @include transform(translateX(-20px));
+  @include transition(all .3s ease-in-out);
+}
 
+
+@media only screen and (max-width: 768px) {
+  #container{
+    width: 500px;
+    height: 350px;
+    img {
+      width: 500px;
+      height: 350px;
+    }
+  }
+  footer {
+    width: 70%;
+    height: 70%;
+  }
+  nav {
+    width: 83%;
+    height: 50px;
+
+    ul li {
+      margin: -8px 26px 5px ;
+
+    button {
+      width: 80px;
+      height: 30px;
+      font-size: 14px;
+    }
+   }
+  }
+
+  header {
+    width: 70%;
+    height: 70%;
+
+    h1 {
+     font-size: 1em;
+    }
+
+  }
+}
+
+@media only screen and (max-width:550px ) {
+  #container{
+    width: 400px;
+    height: 250px;
+    img {
+      width: 400px;
+      height: 250px;
+    }
+  }
+  footer {
+    width: 50%;
+    height: 50%;
+    font-size: 10px;
+  }
+  nav {
+    width: 68%;
+    height: 40px;
+
+    ul li {
+      margin: -12px 18px 5px ;
+
+    button {
+      width: 53px;
+      height: 15px;
+      font-size: 10px;
+    }
+   }
+  }
+
+  header {
+    width: 50%;
+    height: 50%;
+
+    h1 {
+     font-size: .7em;
+    }
+
+  }
 }
