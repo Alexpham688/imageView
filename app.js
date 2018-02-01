@@ -4,16 +4,6 @@ $(document).ready(function(){
   var container = $('#container');
   var after = $('.after');
 
-   ///* trying to change image *///
-
-  $('#left').on('click', function(e){
-    var newImage = $(this).attr('id');
-    var oldImage = $('.after').attr('class');
-    $('.after').fadeOut(function(){
-  $('.after').removeClass(oldImage).addClass(newImage).fadeIn(500);
-  e.preventDefault();
-});
-});
 
   //creating drag
   Draggable.create(drag, {
